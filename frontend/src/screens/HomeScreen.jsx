@@ -1,36 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Col, Row } from "react-bootstrap";
-import { publicRequest } from "../requestMethods";
 import Product from "../components/Product";
+import { listProducts } from "../actions/productAction";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const res = await publicRequest.get("/products");
-      setProducts(res.data);
-    };
-    fetchProduct();
-  }, []);
+    listProducts(dispatch);
+  }, [dispatch]);
+
+  const { products, error, loading } = useSelector(
+    (state) => state.productList
+  );
 
   return (
     <>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map((product) => (
-          <Col
-            className="d-flex align-items-stretch"
-            key={product._id}
-            sm={12}
-            md={6}
-            lg={4}
-            xl={3}
-          >
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <Col
+              className="d-flex align-items-stretch"
+              key={product._id}
+              sm={12}
+              md={6}
+              lg={4}
+              xl={3}
+            >
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };

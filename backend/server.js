@@ -4,8 +4,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const productRouter = require("./routes/product");
+const userRouter = require("./routes/userRoutes");
 
 const connectDB = require("./config/db");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
 
@@ -19,6 +21,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
+
+app.use(notFound);
+
+app.use(errorHandler);
 
 const Port = process.env.PORT || 5000;
 
