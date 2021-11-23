@@ -1,10 +1,19 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 import classes from "./Header.module.css";
+import { logout } from "../actions/userAction";
 
 const Header = () => {
+  const dispacth = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
+
+  const logoutHandler = () => {
+    logout(dispacth);
+  };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -24,13 +33,32 @@ const Header = () => {
                   Cart
                 </Link>
               </div>
-
-              <div className="nav-link">
-                <Link className={classes.link} to="/login">
-                  <i className="fas fa-user" style={{ marginRight: "5px" }}></i>
-                  Sign In
-                </Link>
-              </div>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <div className="dropdown-item">
+                    <Link to="/profile" className={classes.profileLink}>
+                      Profile
+                    </Link>
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    style={{ cursor: "pointer" }}
+                    onClick={logoutHandler}
+                  >
+                    Logout
+                  </div>
+                </NavDropdown>
+              ) : (
+                <div className="nav-link">
+                  <Link className={classes.link} to="/login">
+                    <i
+                      className="fas fa-user"
+                      style={{ marginRight: "5px" }}
+                    ></i>
+                    Sign In
+                  </Link>
+                </div>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

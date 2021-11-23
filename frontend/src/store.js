@@ -2,11 +2,32 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { productReducer } from "./reducers/productReducers";
 import { singleProductReducer } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
+import {
+  userLoginReducer,
+  userRegisterReducer,
+  userDetailReducer,
+  userProfileUpdateReducer,
+} from "./reducers/userReducers";
+
+import {
+  orderCreateReducer,
+  orderDetailReducer,
+  orderPayReducer,
+  myOrdersReducer,
+} from "./reducers/orderReducers";
 
 const rootReeducer = combineReducers({
   productList: productReducer,
   singleProduct: singleProductReducer,
   cart: cartReducer,
+  userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userProfile: userDetailReducer,
+  userProfileUpdate: userProfileUpdateReducer,
+  orderCreate: orderCreateReducer,
+  orderDetail: orderDetailReducer,
+  orderPay: orderPayReducer,
+  myOrderList: myOrdersReducer,
 });
 
 const store = configureStore({

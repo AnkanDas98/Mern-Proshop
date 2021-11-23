@@ -1,0 +1,15 @@
+.stepsLink:link,
+.stepsLink:active,
+.stepsLink:hover,
+.stepsLink:visited {
+  text-decoration: none;
+}
+
+.stepsLinkDisable:link,
+.stepsLinkDisable:active,
+.stepsLinkDisable:hover,
+.stepsLinkDisable:visited {
+  text-decoration: none;
+  pointer-events: none;
+  color: #ced4da;
+}

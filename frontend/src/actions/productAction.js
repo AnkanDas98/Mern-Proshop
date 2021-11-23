@@ -10,13 +10,13 @@ import {
   singleProductFetchingFailed,
 } from "../reducers/productReducers";
 
-import { publicRequest } from "../requestMethods";
+import { axiosRequest } from "../requestMethods";
 
 export const listProducts = async (dispatch) => {
   try {
     dispatch(productFetchingStart());
 
-    const res = await publicRequest.get("/products");
+    const res = await axiosRequest.get("/products");
     dispatch(productFetchingSuccess(res.data));
   } catch (error) {
     const err =
@@ -30,7 +30,7 @@ export const listProducts = async (dispatch) => {
 export const singleProduct = async (dispatch, id) => {
   try {
     dispatch(singleProductFetchingStart());
-    const res = await publicRequest.get(`/products/${id}`);
+    const res = await axiosRequest.get(`/products/${id}`);
     dispatch(singleProductFetchingSuccess(res.data));
   } catch (error) {
     const err =

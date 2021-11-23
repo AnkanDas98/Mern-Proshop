@@ -1,11 +1,16 @@
-import { cart_add_item, cart_remove_item } from "../reducers/cartReducers";
+import {
+  cart_add_item,
+  cart_remove_item,
+  cart_save_shipping_address,
+  cart_save_payment_method,
+} from "../reducers/cartReducers";
 
-import { publicRequest } from "../requestMethods";
+import { axiosRequest } from "../requestMethods";
 
 import store from "../store";
 
 export const addToCart = async (dispatch, id, qty) => {
-  const { data } = await publicRequest.get(`/products/${id}`);
+  const { data } = await axiosRequest.get(`/products/${id}`);
 
   dispatch(
     cart_add_item({
@@ -29,4 +34,16 @@ export const removeFromCart = (dispatch, id) => {
     "cartItems",
     JSON.stringify(store.getState().cart.cartItems)
   );
+};
+
+export const saveShippingAddress = (dispatch, data) => {
+  dispatch(cart_save_shipping_address(data));
+
+  localStorage.setItem("shipping", JSON.stringify(data));
+};
+
+export const savePaymentMethod = (dispatch, data) => {
+  dispatch(cart_save_payment_method(data));
+
+  localStorage.setItem("paymentMethod", JSON.stringify(data));
 };

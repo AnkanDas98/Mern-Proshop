@@ -9,3 +9,17 @@
   text-decoration: none;
   color: #fff;
 }
+
+.profileLink:link,
+.profileLink:visited {
+  text-decoration: none;
+  color: #1a1a1a;
+}
+
+a.profileLink:active {
+  color: #fff;
+}
+
+.profileLink:hover {
+  color: #1a1a1a;
+}
