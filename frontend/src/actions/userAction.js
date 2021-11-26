@@ -15,10 +15,8 @@ import {
   user_profile_update_failed,
   user_profile_update_reset,
 } from "../reducers/userReducers";
-import {
-  my_order_list_reset,
-  order_details_reset,
-} from "../reducers/orderReducers";
+import { my_order_list_reset } from "../reducers/orderReducers";
+import { user_list_rest } from "../reducers/adminReducers";
 import { axiosRequest } from "../requestMethods";
 
 import store from "../store";
@@ -55,7 +53,8 @@ export const logout = async (dispatch) => {
   dispatch(user_logout());
   dispatch(user_details_reset());
   dispatch(my_order_list_reset());
-  //dispatch(order_details_reset());
+  dispatch(user_list_rest());
+  window.location.reload();
 };
 
 export const register = async (dispatch, name, email, password) => {

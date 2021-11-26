@@ -16,6 +16,17 @@ import {
   myOrdersReducer,
 } from "./reducers/orderReducers";
 
+import {
+  usersListReducer,
+  deleteUserReducer,
+  userUpdateReducer,
+  deleteProductReducer,
+  createProductReducer,
+  updateProductReducer,
+  getOrdersReducer,
+  deliverOrdersReducer,
+} from "./reducers/adminReducers";
+
 const rootReeducer = combineReducers({
   productList: productReducer,
   singleProduct: singleProductReducer,
@@ -28,6 +39,16 @@ const rootReeducer = combineReducers({
   orderDetail: orderDetailReducer,
   orderPay: orderPayReducer,
   myOrderList: myOrdersReducer,
+
+  //Admin
+  userList: usersListReducer,
+  deleteUser: deleteUserReducer,
+  userUpdate: userUpdateReducer,
+  deleteProduct: deleteProductReducer,
+  createProduct: createProductReducer,
+  updateProduct: updateProductReducer,
+  getOrders: getOrdersReducer,
+  deliverOrders: deliverOrdersReducer,
 });
 
 const store = configureStore({

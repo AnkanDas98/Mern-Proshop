@@ -2,10 +2,12 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const productRouter = require("./routes/product");
 const userRouter = require("./routes/userRoutes");
 const orderRouter = require("./routes/orderRoutes");
+const uploadRouter = require("./routes/uploadRoutes");
 
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
@@ -24,9 +26,12 @@ app.use(express.json());
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/upload", uploadRouter);
 app.use("/api/config/stripe", (req, res) => {
   res.send(process.env.STRIPE_PUBLISHER_KEY);
 });
+
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(notFound);
 

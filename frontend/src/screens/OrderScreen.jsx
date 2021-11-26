@@ -33,11 +33,11 @@ const OrderScreen = () => {
 
   const { loading, error } = orderDetail;
 
-  const { loading: loadingPay, success: successPay } = orderPay;
+  const { loading: loadingPay } = orderPay;
 
   let order = orderDetail.order;
 
-  if (!loading && order.size > 0) {
+  if (!loading) {
     const addDecimals = (num) => {
       return Math.round((num * 100) / 100).toFixed(2);
     };

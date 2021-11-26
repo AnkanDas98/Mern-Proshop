@@ -105,3 +105,75 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     throw new Error("Invalid user data");
   }
 });
+
+// @desc.....Get All Users...
+// @route.....GET api/users...
+// @access.....Private/Admin...
+
+exports.getUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find();
+
+  if (users) {
+    res.status(200).json(users);
+  } else {
+    res.status(404);
+    throw new Error("Users not Found");
+  }
+});
+
+// @desc.....Delete a User...
+// @route.....DELETE api/users/:id...
+// @access.....Private/Admin...
+
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+  const userId = req.params.id;
+  try {
+    await User.deleteOne({ _id: userId });
+    res.json({ messgae: "User removed" });
+  } catch (error) {
+    res.status(404);
+    throw new Error("Users not Found");
+  }
+});
+
+// @desc.....Get User By Id...
+// @route.....Get api/users/:id...
+// @access.....Private/Admin...
+
+exports.getUserById = asyncHandler(async (req, res, next) => {
+  const userId = req.params.id;
+
+  const user = await User.findById({ _id: userId }).select("-password");
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(401);
+    throw new Error("No User Found!");
+  }
+});
+
+// @desc.....Update user ...
+// @route.....PUT api/users/:id...
+// @access.....Private/Admin...
+
+exports.updateUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not Found");
+  }
+});

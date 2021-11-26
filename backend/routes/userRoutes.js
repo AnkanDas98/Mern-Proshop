@@ -5,14 +5,22 @@ const {
   getUserProfile,
   registerUser,
   updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
 } = require("../controller/userController");
-const { protect } = require("../middleware/authMiddleware");
+const { protect, admin } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.post("/", registerUser);
+router.get("/", protect, admin, getUsers);
 router.post("/login", authUser);
 router.post("/register", registerUser);
 router.get("/profile", protect, getUserProfile);
 router.put("/profile", protect, updateUserProfile);
+router.delete("/:id", protect, admin, deleteUser);
+router.get("/:id", protect, admin, getUserById);
+router.put("/:id", protect, admin, updateUser);
 
 module.exports = router;
