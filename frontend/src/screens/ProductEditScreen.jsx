@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosRequest } from "../requestMethods";
 import {
   getStorage,
   ref,
@@ -29,7 +28,6 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [countInStock, setCountInStock] = useState(0);
-  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -180,7 +178,6 @@ const ProductEditScreen = () => {
                 label="Chose File"
                 onChange={uploadFileHandler}
               />
-              {uploading && <Loader />}
             </Form.Group>
             <Form.Group controlId="brand">
               <Form.Label>Brand</Form.Label>

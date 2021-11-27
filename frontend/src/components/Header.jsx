@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 import classes from "./Header.module.css";
+import SearchBox from "./SearchBox";
 import { logout } from "../actions/userAction";
 
 const Header = () => {
@@ -23,6 +24,7 @@ const Header = () => {
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <SearchBox />
             <Nav className="ms-auto">
               <div className="nav-link">
                 <Link to="/cart" className={classes.link}>

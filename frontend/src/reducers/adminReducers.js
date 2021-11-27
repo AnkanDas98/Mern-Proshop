@@ -115,6 +115,7 @@ const createProductSlice = createSlice({
       state.loading = false;
       state.product = {};
       state.success = false;
+      state.error = false;
     },
   },
 });

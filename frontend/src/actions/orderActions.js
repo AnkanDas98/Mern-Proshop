@@ -12,7 +12,6 @@ import {
   my_order_list_request,
   my_order_list_success,
   my_order_list_failed,
-  order_details_reset,
 } from "../reducers/orderReducers";
 
 import { axiosRequest } from "../requestMethods";
@@ -46,7 +45,6 @@ export const createOrder = async (dispatch, order) => {
 
 export const getOrderDetail = async (dispatch, id) => {
   try {
-    dispatch(order_details_reset());
     dispatch(order_details_request());
 
     const token = store.getState().userLogin.userInfo.token;

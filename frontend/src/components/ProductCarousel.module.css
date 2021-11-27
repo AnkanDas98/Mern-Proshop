@@ -1,0 +1,6 @@
+.carouselLink:link,
+.carouselLink:active,
+.carouselLink:hover,
+.carouselLink:visited {
+  display: flex;
+}

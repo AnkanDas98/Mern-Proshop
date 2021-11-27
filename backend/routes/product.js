@@ -8,6 +8,7 @@ const {
   createProduct,
   updateProduct,
   createProductReview,
+  getTopProduct,
 } = require("../controller/productControllr");
 
 const { protect, admin } = require("../middleware/authMiddleware");
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.get("/", asyncHandler(getProducts));
 router.post("/", protect, admin, createProduct);
+router.get("/top", getTopProduct);
 router.get("/:id", asyncHandler(getSingleProducts));
 router.delete("/:id", protect, admin, deleteProduct);
 router.put("/:id", protect, admin, updateProduct);

@@ -1,6 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { productReducer } from "./reducers/productReducers";
-import { singleProductReducer } from "./reducers/productReducers";
+import {
+  productReducer,
+  singleProductReducer,
+  createProductReviewReducer,
+  topRatedProductReducer,
+} from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
   userLoginReducer,
@@ -29,6 +33,8 @@ import {
 
 const rootReeducer = combineReducers({
   productList: productReducer,
+  productReview: createProductReviewReducer,
+  topRatedProduct: topRatedProductReducer,
   singleProduct: singleProductReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,

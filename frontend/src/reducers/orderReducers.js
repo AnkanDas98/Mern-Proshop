@@ -31,6 +31,8 @@ const orderDetailSlice = createSlice({
   reducers: {
     order_details_request: (state) => {
       state.loading = true;
+      state.order = {};
+      state.error = "";
     },
     order_details_success: (state, action) => {
       state.loading = false;

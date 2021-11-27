@@ -5,8 +5,21 @@ const asyncHandler = require("express-async-handler");
 // @access.....Public...
 
 exports.getProducts = async (req, res, next) => {
-  const products = await Product.find();
-  res.status(200).json(products);
+  const pageSize = 10;
+  const page = Number(req.query.pageNumber) || 1;
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.status(200).json({ products, page, pages: Math.ceil(count / pageSize) });
 };
 
 // @desc.....Fetch Single products...
@@ -48,14 +61,14 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
 
 exports.createProduct = asyncHandler(async (req, res, next) => {
   const product = new Product({
-    name: "Sample name",
-    price: 0,
+    name: req.body.name,
+    price: req.body.price,
     user: req.user._id,
-    image: "/images/sample.jpg",
-    brand: "Sample brand",
-    category: "Sample Category",
-    countInStock: 0,
-    description: "Sample Description",
+    image: req.body.image,
+    brand: req.body.brand,
+    category: req.body.category,
+    countInStock: req.body.countInStock,
+    description: req.body.description,
   });
   try {
     const createdProduct = await product.save();
@@ -130,4 +143,13 @@ exports.createProductReview = asyncHandler(async (req, res, next) => {
     res.status(404);
     throw new Error("Product Not Found");
   }
+});
+
+// @desc.....Get Top Rated Product...
+// @route.....Get /api/products/top...
+// @access.....Public...
+
+exports.getTopProduct = asyncHandler(async (req, res, next) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+  res.status(200).json(products);
 });

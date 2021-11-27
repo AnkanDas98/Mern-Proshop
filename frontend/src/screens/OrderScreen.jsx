@@ -62,7 +62,7 @@ const OrderScreen = () => {
     clientScrect();
 
     // eslint-disable-next-line
-  }, [id, setClientStripe]);
+  }, [id, setClientStripe, userInfo]);
 
   const onToken = (token) => {
     setStripeToken(token);

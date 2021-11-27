@@ -1,7 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
-const mongoose = require("mongoose");
 const path = require("path");
 
 const productRouter = require("./routes/product");
@@ -16,10 +15,6 @@ const app = express();
 
 connectDB();
 
-app.get("/", (req, res, next) => {
-  res.send("Api is running.....");
-});
-
 app.use(cors());
 app.use(express.json());
 
@@ -30,8 +25,20 @@ app.use("/api/upload", uploadRouter);
 app.use("/api/config/stripe", (req, res) => {
   res.send(process.env.STRIPE_PUBLISHER_KEY);
 });
+const dirname = path.resolve();
 
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(dirname, "/frontend/build")));
+  app.get("*", (req, res, next) =>
+    res.sendFile(
+      path.resolve(dirname, "frontend", "build", "index.html").normalize()
+    )
+  );
+} else {
+  app.get("/", (req, res, next) => {
+    res.send("Api is running.....");
+  });
+}
 
 app.use(notFound);
 

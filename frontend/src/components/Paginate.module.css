@@ -1,0 +1,21 @@
+.pageItem {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.pageItemActive {
+  padding: 10px;
+  border: 1px solid #000;
+  font-size: 16px;
+  background-color: #000;
+}
+
+.pageNumLink:link,
+.pageNumLink:hover .pageNumLink:visited,
+.pageNumLink:active {
+  text-decoration: none;
+}
+
+.pageItemActive a.pageNumLinkActive {
+  color: #fff;
+}
