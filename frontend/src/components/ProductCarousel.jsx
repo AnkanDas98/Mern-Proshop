@@ -7,6 +7,8 @@ import Message from "./Message";
 
 import { listTopProducts } from "../actions/productAction";
 
+import classes from "./ProductCarousel.module.css";
+
 const ProductCarousel = () => {
   const dispatch = useDispatch();
 
@@ -27,13 +29,17 @@ const ProductCarousel = () => {
       {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
-            <Carousel.Caption className="carousel-caption">
-              <h2 style={{ fontWeight: "500", fontSize: "13px" }}>
-                {product.name}
-              </h2>
-            </Carousel.Caption>
+            <Image
+              className={classes.carouselImage}
+              src={product.image}
+              alt={product.name}
+              fluid
+            />
           </Link>
+          <h2 className={classes.carouselText}>{product.name}</h2>
+          {/* <Carousel.Caption className="carousel-caption">
+          
+          </Carousel.Caption> */}
         </Carousel.Item>
       ))}
     </Carousel>

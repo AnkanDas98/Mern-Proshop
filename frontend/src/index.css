@@ -58,15 +58,16 @@ h2 {
     right: 15%;
   }
   .carousel-caption h2 {
-    color: #000;
-    font-size: 2.5vw;
+   display: none;
   }
 
   .carousel img {
     height: 300px;
+    width: 450px;
     padding: 30px;
     margin: 40px;
-    border-radius: 50%;
+  
+    /* border-radius: 50%; */
     margin-left: auto;
     margin-right: auto;
   }

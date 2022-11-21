@@ -4,3 +4,17 @@
 .carouselLink:visited {
   display: flex;
 }
+
+.carouselText{
+ 
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  margin: auto;
+}
+
+@media(max-width: 420px){
+  .carouselText{
+    display: none;
+  }
+}
